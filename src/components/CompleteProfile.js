@@ -1,4 +1,5 @@
 import style from "../components/EditProfile.module.css";
+import style2 from "../components/CompleteProfileView.module.css";
 import { useRef, useState } from "react";
 import {
   getProfilePhotoUrl,
@@ -108,7 +109,10 @@ export function CompleteProfile() {
                 >
                   Foto
                 </label>
-                <div class="mt-2 flex items-center gap-x-3">
+                <div
+                  class="mt-2 flex items-center gap-x-3"
+                  className={style2.profilePictureContainer}
+                >
                   <img src={profileUrl} alt="" width={100} />
                   <button
                     type="button"
