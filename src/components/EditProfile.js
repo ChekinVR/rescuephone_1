@@ -10,7 +10,7 @@ import {
 import { useAuth } from "../context/authContext";
 
 export function EditProfile() {
-  const { user, logout, loading } = useAuth();
+  const { user } = useAuth();
 
   const fileRef = useRef();
   const [state, setState] = useState(0);
