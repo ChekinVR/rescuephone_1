@@ -7,6 +7,7 @@ import IsComplete from "./IsComplete";
 export function Home() {
   const { user, logout, loading } = useAuth();
   const [state, setState] = useState(0);
+  const [userInfo, setUserInfo] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -21,15 +22,22 @@ export function Home() {
     navigate("/profile/complete");
   }
 
+  function handleUserLoggedIn(user) {
+    setUserInfo({ ...user });
+  }
+
   if (loading) return <h1>Loading</h1>;
 
   return (
-    <IsComplete onUserNotRegistered={handleUserNotRegistered}>
+    <IsComplete
+      onUserLoggedIn={handleUserLoggedIn}
+      onUserNotRegistered={handleUserNotRegistered}
+    >
       <DashboardWrapper>
         <div className="w-full max-w-xs m-auto text-black mt-5">
           <div className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
             <h1 className="text-xl mb-4">
-              Welcome {user.displayName || user.email}
+              Bienvenido {userInfo.username || user.displayName || user.email}
             </h1>
             <button
               onClick={handleLogout}

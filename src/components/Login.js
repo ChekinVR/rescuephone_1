@@ -44,7 +44,7 @@ export function Login() {
   const handleGoogSignin = async () => {
     try {
       await loginWithGoogle();
-      navigate("/profile/complete");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }

@@ -30,6 +30,8 @@ export default function IsComplete({
           const userInfo = await getUserInfo(user.uid);
           if (userInfo.processCompleted == false) {
             onUserNotRegistered(userInfo);
+          } else {
+            onUserLoggedIn(userInfo);
           }
         } else {
           await registerNewUser({
