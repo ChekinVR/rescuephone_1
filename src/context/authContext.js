@@ -8,20 +8,7 @@ import {
   signOut,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  getDoc,
-  query,
-  where,
-  setDoc,
-  deleteDoc,
-  QuerySnapshot,
-} from "firebase/firestore";
-import { auth, db } from "../firebase/firebase";
+import { auth, getUserInfo } from "../firebase/firebase";
 
 export const authContext = createContext();
 
@@ -34,7 +21,7 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [userInfo, setUserInfo] = useState("");
   const signup = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
@@ -50,11 +37,17 @@ export function AuthProvider({ children }) {
 
   const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
+  const getUserInfoAuth = async (uid) => {
+    const info = await getUserInfo(uid);
+    setUserInfo(info);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
+      getUserInfoAuth(currentUser.uid);
       setLoading(false);
+      console.log("we toy jalando");
     });
 
     return () => unsubscribe();
@@ -65,6 +58,7 @@ export function AuthProvider({ children }) {
         signup,
         login,
         user,
+        userInfo,
         logout,
         loading,
         loginWithGoogle,

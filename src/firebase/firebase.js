@@ -79,7 +79,6 @@ export async function getUserInfo(uid) {
   try {
     const docRef = doc(db, "users", uid);
     const document = await getDoc(docRef);
-    console.log("UserInfo");
     return document.data();
   } catch (error) {
     console.error(error);
