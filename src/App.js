@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./components/Home";
-import { EditProfile } from "./components/EditProfile";
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
+import { Home } from "./routes/Home";
+import { EditProfile } from "./routes/EditProfile";
+import { Login } from "./routes/Login";
+import { Register } from "./routes/Register";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { CompleteProfile } from "./components/CompleteProfile";
+import { CompleteProfile } from "./routes/CompleteProfile";
 
 function App() {
   return (

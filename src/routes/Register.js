@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { Link, useNavigate } from "react-router-dom";
-import { Alert } from "./Alert";
-import {
-  auth,
-  getUserInfo,
-  registerNewUser,
-  userExist,
-} from "../firebase/firebase";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "../components/Alert";
 
 export function Register() {
   const [user, setUser] = useState({

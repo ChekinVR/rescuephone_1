@@ -1,7 +1,7 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert } from "./Alert";
+import { Alert } from "../components/Alert";
 
 export function Register() {
   const [user, setUser] = useState({
@@ -83,4 +83,4 @@ export function Register() {
       </p>
     </div>
   );
-}
+}*/

@@ -1,5 +1,5 @@
-import style from "../components/EditProfile.module.css";
-import style2 from "../components/CompleteProfileView.module.css";
+import style from "../routes/EditProfile.module.css";
+import style2 from "../routes/CompleteProfileView.module.css";
 import { useRef, useState } from "react";
 import {
   getProfilePhotoUrl,
@@ -8,11 +8,11 @@ import {
   updateUser,
   existsUsername,
 } from "../firebase/firebase";
-import { logout, useAuth } from "../context/authContext";
-import { Alert } from "./Alert";
-import { Approved } from "./Approved";
+import { useAuth } from "../context/authContext";
+import { Alert } from "../components/Alert";
+import { Approved } from "../components/Approved";
 import { useNavigate } from "react-router-dom";
-import IsComplete from "./IsComplete";
+import IsComplete from "../components/IsComplete";
 
 export function CompleteProfile() {
   const { logout, user } = useAuth();
@@ -134,10 +134,6 @@ export function CompleteProfile() {
     logout();
   }
 
-  function handleUserNotRegistered(user) {
-    navigate("/profile/complete");
-  }
-
   function handleUserLoggedIn(user) {
     console.log("entre");
   }
@@ -217,7 +213,7 @@ export function CompleteProfile() {
                   <button
                     type="button"
                     //class="group relative h-6 w-24 overflow-hidden rounded-2xl bg-indigo-500 text-sm font-bold text-white"
-                    class="mt-2 h-8 w-20 relative text-center rounded-md bg-indigo-600 rounded-2xl text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    class="mt-2 h-8 w-20 relative text-center rounded-md bg-indigo-600 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handleContinue}
                   >
                     Verificar

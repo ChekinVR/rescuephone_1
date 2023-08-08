@@ -1,12 +1,11 @@
 import { useAuth } from "../context/authContext";
-import { DashboardWrapper } from "../components/dashboardWrapper";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import IsComplete from "./IsComplete";
+import IsComplete from "../components/IsComplete";
+import { NavBar } from "../components/navbarView";
 
 export function Home() {
   const { user, logout, loading } = useAuth();
-  const [state, setState] = useState(0);
   const [userInfo, setUserInfo] = useState("");
   const navigate = useNavigate();
 
@@ -33,11 +32,12 @@ export function Home() {
       onUserLoggedIn={handleUserLoggedIn}
       onUserNotRegistered={handleUserNotRegistered}
     >
-      <DashboardWrapper>
+      <NavBar user>
         <div className="w-full max-w-xs m-auto text-black mt-5">
           <div className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
             <h1 className="text-xl mb-4">
-              Bienvenido {userInfo.username || user.displayName || user.email}
+              Bienvenido {console.log(user)}{" "}
+              {userInfo.username || user.displayName || user.email}
             </h1>
             <button
               onClick={handleLogout}
@@ -47,7 +47,7 @@ export function Home() {
             </button>
           </div>
         </div>
-      </DashboardWrapper>
+      </NavBar>
     </IsComplete>
   );
 }

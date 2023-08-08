@@ -1,29 +1,24 @@
-import style from "../components/EditProfile.module.css";
-import style2 from "../components/CompleteProfileView.module.css";
+import style from "../routes/EditProfile.module.css";
+import style2 from "../routes/CompleteProfileView.module.css";
 import { useRef, useState } from "react";
 import {
   getProfilePhotoUrl,
   getUserInfo,
   setUserProfilePhoto,
   updateUser,
-  existsUsername,
 } from "../firebase/firebase";
-import { logout, useAuth } from "../context/authContext";
-import { Alert } from "./Alert";
-import { Approved } from "./Approved";
+import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import IsComplete from "./IsComplete";
-import { DashboardWrapper } from "../components/dashboardWrapper";
+import IsComplete from "../components/IsComplete";
+import { NavBar } from "../components/navbarView";
 
 export function EditProfile() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
 
-  const [error, setError] = useState();
+  //const [error, setError] = useState();
   const fileRef = useRef();
-  const [state, setState] = useState(0);
   const [profileUrl, setProfileUrl] = useState(null);
-  const [username, setUsername] = useState("");
   const [tmpUser, setTmpUser] = useState({
     username: "",
     name: "",
@@ -75,11 +70,10 @@ export function EditProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    //setError("");
     try {
       const userInfo = await getUserInfo(user.uid);
       const tmpUserSubmit = { ...userInfo };
-      tmpUserSubmit.username = username;
       tmpUserSubmit.name = tmpUser.name;
       tmpUserSubmit.lastname = tmpUser.lastname;
       tmpUserSubmit.birthday = tmpUser.birthday;
@@ -91,16 +85,12 @@ export function EditProfile() {
       navigate("/");
     } catch (error) {
       console.log(error.code);
-      setError(error.message);
+      //setError(error.message);
     }
   };
 
   function handleClick() {
     logout();
-  }
-
-  function handleUserNotRegistered(user) {
-    navigate("/profile/complete");
   }
 
   async function handleUserLoggedIn(user) {
@@ -116,7 +106,7 @@ export function EditProfile() {
   }
 
   return (
-    <DashboardWrapper>
+    <NavBar>
       <IsComplete
         onUserLoggedIn={handleUserLoggedIn}
         onUserNotRegistered={handleUserNotRegistered}
@@ -400,6 +390,6 @@ export function EditProfile() {
           </form>
         </div>
       </IsComplete>
-    </DashboardWrapper>
+    </NavBar>
   );
 }

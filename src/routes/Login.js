@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { Link, useNavigate } from "react-router-dom";
-import { Alert } from "./Alert";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "../components/Alert";
 
 export function Login() {
   const [user, setUser] = useState({
