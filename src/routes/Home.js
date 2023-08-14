@@ -19,7 +19,7 @@ export function Home() {
         <div className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
           <h1 className="text-xl mb-4">
             Bienvenido,
-            {" " + userInfo.username ||
+            {"" + userInfo.username ||
               " " + user.displayName ||
               " " + user.email}
           </h1>

@@ -21,9 +21,11 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState("");
-  const signup = (email, password) =>
+  const [userInfo, setUserInfo] = useState(null);
+  const [tmpUser, setTmpUser] = useState(null);
+  const signup = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password);
+  };
 
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
@@ -38,16 +40,16 @@ export function AuthProvider({ children }) {
   const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
   const getUserInfoAuth = async (uid) => {
-    const info = await getUserInfo(uid);
-    setUserInfo(info);
+    setUserInfo(await getUserInfo(uid));
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      getUserInfoAuth(currentUser.uid);
       setLoading(false);
-      console.log("we toy jalando");
+      if (currentUser !== null) {
+        getUserInfoAuth(currentUser.uid);
+      }
     });
 
     return () => unsubscribe();
@@ -58,6 +60,8 @@ export function AuthProvider({ children }) {
         signup,
         login,
         user,
+        tmpUser,
+        setTmpUser,
         userInfo,
         logout,
         loading,

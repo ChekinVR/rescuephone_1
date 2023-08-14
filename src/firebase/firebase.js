@@ -54,6 +54,27 @@ export async function registerNewUser(user) {
   } catch (error) {}
 }
 
+export async function registerNewUserDoc(user) {
+  try {
+    registerNewUser(user)({
+      uid: user.uid,
+      displayName: user.displayName,
+      name: "",
+      lastname: "",
+      profilePicture: "",
+      username: "",
+      mail: user.email,
+      birthday: "",
+      gender: "",
+      address: "",
+      password: "",
+      phoneNumber: "",
+      modDevice: "",
+      processCompleted: false,
+    });
+  } catch (error) {}
+}
+
 export async function userExist(uid) {
   const docRef = doc(db, "users", uid);
   const res = await getDoc(docRef);

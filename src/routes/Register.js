@@ -2,30 +2,32 @@ import { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../components/Alert";
+import { registerNewUser, registerNewUserDoc } from "../firebase/firebase";
 
 export function Register() {
-  const [user, setUser] = useState({
+  const [userRegister, setUserRegister] = useState({
     email: "",
     password: "",
   });
 
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { tmpUser, setTmpUser, signup } = useAuth();
   const [error, setError] = useState();
 
   const handleChange = ({ target: { name, value } }) => {
-    setUser({ ...user, [name]: value });
+    setUserRegister({ ...userRegister, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      console.log(user);
-      await signup(user.email, user.password);
+      console.log(userRegister);
+      await signup(userRegister.email, userRegister.password);
+      setTmpUser(userRegister);
       navigate("/profile/complete");
     } catch (error) {
-      console.log(error.code);
+      console.log(error);
       if (error.code === "auth/missing-password") {
         setError("Porfavor coloca una contraseña :)");
       } else {
@@ -43,7 +45,7 @@ export function Register() {
           alt="RescuePhone"
         />
         <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Bienvenido a la familia {user.email}
+          Bienvenido a la familia {userRegister.email}
         </h2>
         <div className="mt-4">{error && <Alert message={error} />}</div>
       </div>
